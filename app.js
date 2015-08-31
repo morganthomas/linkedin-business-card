@@ -9,7 +9,7 @@ var mongoose = require('mongoose');
 var hostname = require('./config/hostname.js');
 var pageController = require('./controllers/pages.js');
 
-mongoose.connect('mongodb://' + hostname.DB_HOST + '/linkedinBusinessCard');
+mongoose.connect('mongodb://' + hostname.DB_HOST + '/linkedInBusinessCard');
 
 var app = express();
 app.set('view engine', 'jade');
@@ -36,9 +36,10 @@ app.get('/auth/callback',
 		res.redirect('/me');
 	});
 
-app.get('/', pageController.index);
+app.get('/', pageController.me);
 app.get('/login', pageController.login);
-app.get('/me', passportConfig.ensureAuthenticated, pageController.me);
+app.get('/me', pageController.me);
+app.get('/view/:userId', pageController.view);
 
 var server = app.listen(hostname.PORT, function() {
 	console.log('Express server listening on port ' + server.address().port);
