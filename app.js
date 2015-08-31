@@ -2,12 +2,14 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var methodOverride = require('method-override');
-var session = require('express-session');
 var passport = require('passport');
-var LinkedInStrategy = require('passport-linkedin').Strategy;
+var session = require('express-session');
+var mongoose = require('mongoose');
 
 var hostname = require('./config/hostname.js');
 var pageController = require('./controllers/pages.js');
+
+mongoose.connect('mongodb://' + hostname.DB_HOST + '/linkedinBusinessCard');
 
 var app = express();
 app.set('view engine', 'jade');
