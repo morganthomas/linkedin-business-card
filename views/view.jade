@@ -1,0 +1,21 @@
+extends layout
+
+block head
+  link(rel="stylesheet" href="/stylesheets/view.css")
+
+block scripts
+  script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js")
+  script(src="/scripts/view.js")
+
+block content
+  .business-card
+    .picture
+      img(src="#{user.pictureUrl}")
+    .card-info
+      .card-line.card-name #{user.name}
+      .card-line.card-headline #{user.headline}
+      .card-line.card-location #{user.location}
+      .card-line.card-specialties #{user.specialties}
+      .positions
+        for position in user.positions
+          .card-line.card-position #{position.title} at #{position.company}

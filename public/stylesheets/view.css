@@ -1,0 +1,14 @@
+.business-card {
+  width: 500px;
+  border: 1px solid black;
+  min-height: 200px;
+  margin: auto;
+}
+
+.picture {
+  float: left;
+}
+
+.card-name {
+  font-size: 1.5em;
+}
