@@ -6,7 +6,8 @@ var session = require('express-session');
 var passport = require('passport');
 var LinkedInStrategy = require('passport-linkedin').Strategy;
 
-var indexController = require('./controllers/index.js');
+var hostname = require('./config/hostname.js');
+var pageController = require('./controllers/pages.js');
 
 var app = express();
 app.set('view engine', 'jade');
@@ -19,54 +20,24 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(__dirname + '/public'));
 
-var PORT = 3002;
-var MY_HOSTNAME = 'localhost:' + PORT;
-var LINKEDIN_API_KEY = '782fe19gudzl1u';
-var LINKEDIN_API_SECRET = 'lVQdRR0H4u71OBhf';
-
-passport.serializeUser(function(user, done) {
-	done(null, user);
-});
-
-passport.deserializeUser(function(obj, done) {
-	done(null, obj);
-});
-
-passport.use(new LinkedInStrategy({
-		consumerKey: LINKEDIN_API_KEY,
-		consumerSecret: LINKEDIN_API_SECRET,
-		callbackURL: 'http://' + MY_HOSTNAME + '/auth/callback',
-		profileFields: ['id', 'formatted-name', 'headline', 'location', 'specialties',
-			'positions', 'picture-url', 'public-profile-url']
-	},
-	function(token, tokenSecret, profile, done) {
-		process.nextTick(function() {
-			done(null, profile);
-		});
-	}
-));
-
-app.get('/', indexController.index);
+var passportConfig = require('./config/passport.js');
 
 app.get('/auth',
 	passport.authenticate('linkedin'),
+	// This won't get called because the linkedin middleware will redirect to the linkedin
+	// login page.
 	function(req, res) { });
 
 app.get('/auth/callback',
-  passport.authenticate('linkedin', { failureRedirect: '/' }),
+  passport.authenticate('linkedin', { failureRedirect: '/login' }),
 	function(req,res) {
-		res.redirect('/self');
+		res.redirect('/me');
 	});
 
-app.get('/self', function(req, res) {
-	res.send(req.user);
-});
+app.get('/', pageController.index);
+app.get('/login', pageController.login);
+app.get('/me', passportConfig.ensureAuthenticated, pageController.me);
 
-var server = app.listen(PORT, function() {
+var server = app.listen(hostname.PORT, function() {
 	console.log('Express server listening on port ' + server.address().port);
 });
-
-var ensureAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('/login');
-}
