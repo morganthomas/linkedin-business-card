@@ -35,7 +35,7 @@ businessCardApp.controller('businessCardController', function($scope, $http) {
       },
       function(res) {
         $scope.alerts.push({ type: 'danger', msg: res });
-        console.log(res);
+        console.log(res.data);
       });
   }
 });
