@@ -62,15 +62,3 @@ passport.use(new LinkedInStrategy({
     });
 	}
 ));
-
-var ensureAuthenticated = function(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  } else {
-    res.redirect('/login');
-  }
-}
-
-module.exports = {
-  ensureAuthenticated: ensureAuthenticated
-};

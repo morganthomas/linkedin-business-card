@@ -1,7 +1,7 @@
 // This module relies on global variables 'user' and 'me' which are initially populated
 // in a script tag generated on the server side. 'user' contains the user whose card
 // we are viewing, and 'me' contains the user who we are. I thought this approach was
-// simpler and more efficient than fetching this information using the AJAX API.
+// simpler and more efficient than fetching this information using an AJAX API call.
 
 var businessCardApp = angular.module('businessCardApp', ['ui.bootstrap']);
 
@@ -34,8 +34,7 @@ businessCardApp.controller('businessCardController', function($scope, $http) {
         $scope.editEnabled = false;
       },
       function(res) {
-        $scope.alerts.push({ type: 'danger', msg: res });
-        console.log(res.data);
+        $scope.alerts.push({ type: 'danger', msg: res.data });
       });
   }
 });

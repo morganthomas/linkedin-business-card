@@ -17,7 +17,7 @@ block scripts
 
 block content
   div(ng-app="businessCardApp" ng-controller="businessCardController")
-    .business-card
+    .business-card(ng-cloak)
       .picture
         img(src="{{user.pictureUrl}}")
       .card-info
@@ -37,10 +37,10 @@ block content
           card-editable-field(card-label="Email" card-object="user" card-field="email" card-edit-enabled="editEnabled")
           span(ng-if="(user.phone.length > 0 && user.email.length > 0) || editEnabled") &nbsp;·&nbsp;
           card-editable-field(card-label="Phone" card-object="user" card-field="phone" card-edit-enabled="editEnabled")
-    .edit-controls(ng-show="me && user.id === me.id")
+    .edit-controls(ng-show="me && user.id === me.id" ng-cloak)
       button.btn(ng-click="toggleEdit()" class="{{editEnabled ? 'btn-success' : 'btn-primary'}}") {{editEnabled ? "Preview" : "Edit"}}
       button.btn.btn-primary(ng-click="save()") Save
       p.edit-alert.alert.alert-info(ng-show="editEnabled") Click on a text field to edit it.
-      alert.edit-alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="2000") {{alert.msg}}
+      alert.edit-alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="1000") {{alert.msg}}
   
   p.footer Powered by <a href="/">Virtual Business Card</a>.
