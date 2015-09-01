@@ -1,5 +1,5 @@
 var PORT = 3002;
-var HOSTNAME = 'localhost:' + PORT;
+var HOSTNAME = '107.170.209.181:' + PORT;
 var DB_HOST = 'localhost';
 
 module.exports = {
