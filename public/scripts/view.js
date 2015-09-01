@@ -33,6 +33,10 @@ businessCardApp.directive('cardEditableField', function() {
       scope.editing = false;
 
       scope.setEditing = function() {
+        if (!scope.editEnabled) {
+          return;
+        }
+
         var $text = elem.find('.editable-text');
         var $editor = elem.find('.in-place-editor');
         $text.hide();

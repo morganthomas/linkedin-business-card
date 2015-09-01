@@ -49,7 +49,9 @@ passport.use(new LinkedInStrategy({
         specialties: profile._json.specialties || '',
         positions: positions,
         pictureUrl: profile._json.pictureUrl || '',
-        linkedInUrl: profile._json.publicProfileUrl
+        linkedInUrl: profile._json.publicProfileUrl,
+        email: '',
+        phone: ''
       });
 
       user.save(function(err) {

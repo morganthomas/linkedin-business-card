@@ -9,7 +9,9 @@ var userSchema = mongoose.Schema({
   // Array of objects { title : String, company : String }.
   positions: Array,
   pictureUrl: String,
-  linkedInUrl: String
+  linkedInUrl: String,
+  email: String,
+  phone: String
 });
 
 var User = mongoose.model('user', userSchema);

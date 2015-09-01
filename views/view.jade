@@ -35,3 +35,7 @@ block content
             span.remove-position-button.fa.fa-times(ng-if="editEnabled" ng-click="removePosition($index)")
           div(ng-if="editEnabled")
             button.btn.btn-default(ng-click="addPosition()") Add Position
+        div
+          card-editable-field(card-label="Email" card-object="user" card-field="email" card-edit-enabled="editEnabled")
+          span(ng-if="user.phone.length > 0 && user.email.length > 0") &nbsp;·&nbsp;
+          card-editable-field(card-label="Phone" card-object="user" card-field="phone" card-edit-enabled="editEnabled")
