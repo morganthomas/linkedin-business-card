@@ -1,7 +1,9 @@
 extends layout
 
 block head
+  title Virtual Business Card
   link(rel="stylesheet" href="/stylesheets/view.css")
+  link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css")
 
 block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
@@ -12,17 +14,24 @@ block scripts
   script(src="/scripts/view.js")
 
 block content
-  div(ng-app="businessCardApp")
-    .business-card(ng-controller="businessCardController")
+  div(ng-app="businessCardApp" ng-controller="businessCardController")
+    div
+      input(type="checkbox" ng-model="editEnabled")
+      span &nbsp;Enable editing
+      p.edit-instructions(ng-show="editEnabled") Click on a text field to edit it.
+    .business-card
       .picture
         img(src="{{user.pictureUrl}}")
       .card-info
-        card-editable-field.card-line.card-name(card-label="Name" card-object="user" card-field="name")
-        card-editable-field.card-line.card-headline(card-label="Headline" card-object="user" card-field="headline")
-        card-editable-field.card-line.card-location(card-label="Location" card-object="user" card-field="location")
-        card-editable-field.card-line.card-specialties(card-show-label="true" card-label="Specialties" card-object="user" card-field="specialties")
-        .positions(ng-if="user.positions.length > 0")
+        card-editable-field.card-line.card-name(card-label="Name" card-object="user" card-field="name" card-edit-enabled="editEnabled")
+        card-editable-field.card-line.card-headline(card-label="Headline" card-object="user" card-field="headline" card-edit-enabled="editEnabled")
+        card-editable-field.card-line.card-location(card-label="Location" card-object="user" card-field="location" card-edit-enabled="editEnabled")
+        card-editable-field.card-line.card-specialties(card-show-label="true" card-label="Specialties" card-object="user" card-field="specialties" card-edit-enabled="editEnabled")
+        .positions(ng-if="user.positions.length > 0 || editEnabled")
           .card-line.card-position(ng-repeat="position in user.positions")
-            card-editable-field(card-label="Title" card-object="position" card-field="title")
+            card-editable-field(card-label="Title" card-object="position" card-field="title" card-edit-enabled="editEnabled")
             span &nbsp;at&nbsp;
-            card-editable-field(card-label="Position" card-object="position" card-field="company")
+            card-editable-field(card-label="Company" card-object="position" card-field="company" card-edit-enabled="editEnabled")
+            span.remove-position-button.fa.fa-times(ng-if="editEnabled" ng-click="removePosition($index)")
+          div(ng-if="editEnabled")
+            button.btn.btn-default(ng-click="addPosition()") Add Position

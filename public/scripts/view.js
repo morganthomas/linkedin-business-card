@@ -6,7 +6,16 @@
 var businessCardApp = angular.module('businessCardApp', []);
 
 businessCardApp.controller('businessCardController', function($scope) {
+  $scope.editEnabled = false;
   $scope.user = user;
+
+  $scope.addPosition = function() {
+    user.positions.push({ title: '', company: '' });
+  }
+
+  $scope.removePosition = function(index) {
+    user.positions.splice(index, 1);
+  }
 });
 
 businessCardApp.directive('cardEditableField', function() {
@@ -17,7 +26,8 @@ businessCardApp.directive('cardEditableField', function() {
       object: '=cardObject',
       field: '@cardField',
       label: '@cardLabel',
-      showLabel: '=cardShowLabel'
+      showLabel: '=cardShowLabel',
+      editEnabled: '=cardEditEnabled'
     },
     link: function(scope, elem, attrs) {
       scope.editing = false;

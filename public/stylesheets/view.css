@@ -25,6 +25,14 @@
   position: relative;
 }
 
-.in-place-editor {
+.remove-position-button {
+  margin-left: 1em;
+}
 
+.remove-position-button:hover {
+  cursor: pointer;
+}
+
+.edit-instructions {
+  color: green;
 }

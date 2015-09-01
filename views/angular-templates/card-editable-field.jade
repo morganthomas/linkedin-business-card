@@ -1,5 +1,5 @@
-span.card-editable-field <!-- (ng-if="object[field].length > 0 || editing") -->
-  strong(ng-if="showLabel") {{label}}: 
+span.card-editable-field(ng-if="object[field].length > 0 || editEnabled")
+  span.card-field-label(ng-if="showLabel") {{label}}: 
   span.editable-text(ng-click="setEditing()") {{object[field]}}
   input.in-place-editor(ng-model="object[field]" ng-blur="setNotEditing()" style="display: none")
-  button.btn.btn-default(ng-show="object[field].length === 0 && !editing" ng-click="setEditing()") Add {{label}}
+  button.btn.btn-default(ng-show="object[field].length === 0 && !editing && editEnabled" ng-click="setEditing()") Add {{label}}
