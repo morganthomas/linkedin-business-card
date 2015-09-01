@@ -9,6 +9,22 @@
   float: left;
 }
 
+.card-info {
+  overflow: hidden;
+}
+
+.card-line {
+  display: block;
+}
+
 .card-name {
   font-size: 1.5em;
+}
+
+.card-editable-field {
+  position: relative;
+}
+
+.in-place-editor {
+
 }

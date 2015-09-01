@@ -4,18 +4,25 @@ block head
   link(rel="stylesheet" href="/stylesheets/view.css")
 
 block scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js")
+  script
+   | var user = !{user};
+   | var me = !{me || 'null'};
   script(src="/scripts/view.js")
 
 block content
-  .business-card
-    .picture
-      img(src="#{user.pictureUrl}")
-    .card-info
-      .card-line.card-name #{user.name}
-      .card-line.card-headline #{user.headline}
-      .card-line.card-location #{user.location}
-      .card-line.card-specialties #{user.specialties}
-      .positions
-        for position in user.positions
-          .card-line.card-position #{position.title} at #{position.company}
+  div(ng-app="businessCardApp")
+    .business-card(ng-controller="businessCardController")
+      .picture
+        img(src="{{user.pictureUrl}}")
+      .card-info
+        card-editable-field.card-line.card-name(card-label="Name" card-object="user" card-field="name")
+        card-editable-field.card-line.card-headline(card-label="Headline" card-object="user" card-field="headline")
+        card-editable-field.card-line.card-location(card-label="Location" card-object="user" card-field="location")
+        card-editable-field.card-line.card-specialties(card-show-label="true" card-label="Specialties" card-object="user" card-field="specialties")
+        .positions(ng-if="user.positions.length > 0")
+          .card-line.card-position(ng-repeat="position in user.positions")
+            card-editable-field(card-label="Title" card-object="position" card-field="title")
+            span &nbsp;at&nbsp;
+            card-editable-field(card-label="Position" card-object="position" card-field="company")

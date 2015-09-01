@@ -40,6 +40,9 @@ app.get('/', pageController.me);
 app.get('/login', pageController.login);
 app.get('/me', pageController.me);
 app.get('/view/:userId', pageController.view);
+app.get('/angular-templates/:template', function(req, res) {
+	res.render('angular-templates/' + req.params.template);
+});
 
 var server = app.listen(hostname.PORT, function() {
 	console.log('Express server listening on port ' + server.address().port);

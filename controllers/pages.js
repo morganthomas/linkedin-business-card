@@ -15,7 +15,7 @@ var pageController = {
 
 	view: function(req, res) {
 		var show = function(user) {
-			res.render('view', { me: req.user, user: user });
+			res.render('view', { me: JSON.stringify(req.user), user: JSON.stringify(user) });
 		}
 
 		if (req.user && req.params.userId === req.user.id) {
