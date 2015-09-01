@@ -9,5 +9,9 @@
     "express-session": "~1.11.3",
     "method-override": "~2.3.5",
     "mongoose": "~4.1.4"
+  },
+
+  "scripts": {
+    "deploy": "git pull bare master && forever restart app.js"
   }
 }
