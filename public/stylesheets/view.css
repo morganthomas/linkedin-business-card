@@ -36,6 +36,16 @@
   cursor: pointer;
 }
 
+.edit-controls {
+  margin-top: 10px;
+}
+
+.edit-controls button {
+  margin: 0 5px;
+}
+
 .edit-instructions {
-  color: green;
+  margin: auto;
+  margin-top: 10px;
+  width: 250px;
 }

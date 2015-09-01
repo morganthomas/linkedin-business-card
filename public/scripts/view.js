@@ -5,7 +5,7 @@
 
 var businessCardApp = angular.module('businessCardApp', []);
 
-businessCardApp.controller('businessCardController', function($scope) {
+businessCardApp.controller('businessCardController', function($scope, $http) {
   $scope.user = user;
   $scope.me = me;
   $scope.editEnabled = false;
@@ -16,6 +16,22 @@ businessCardApp.controller('businessCardController', function($scope) {
 
   $scope.removePosition = function(index) {
     user.positions.splice(index, 1);
+  }
+
+  $scope.toggleEdit = function() {
+    $scope.editEnabled = !$scope.editEnabled;
+  }
+
+  $scope.save = function() {
+    $http.put('/api/save', { user: user })
+      .then(function(res) {
+        alert("Saved!");
+        $scope.editEnabled = false;
+      },
+      function(res) {
+        alert("Server error.");
+        console.log(res);
+      });
   }
 });
 

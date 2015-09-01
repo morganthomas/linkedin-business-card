@@ -8,13 +8,15 @@ var mongoose = require('mongoose');
 
 var hostname = require('./config/hostname.js');
 var pageController = require('./controllers/pages.js');
+var apiController = require('./controllers/api.js');
 
 mongoose.connect('mongodb://' + hostname.DB_HOST + '/linkedInBusinessCard');
 
 var app = express();
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/views');
-app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(cookieParser());
 app.use(methodOverride());
 app.use(session({ secret: 'very secret', resave: false, saveUninitialized: false }));
@@ -43,6 +45,7 @@ app.get('/view/:userId', pageController.view);
 app.get('/angular-templates/:template', function(req, res) {
 	res.render('angular-templates/' + req.params.template);
 });
+app.put('/api/save', apiController.save);
 
 var server = app.listen(hostname.PORT, function() {
 	console.log('Express server listening on port ' + server.address().port);
