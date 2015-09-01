@@ -15,7 +15,7 @@ block scripts
 
 block content
   div(ng-app="businessCardApp" ng-controller="businessCardController")
-    div
+    div(ng-show="me && user.id === me.id")
       input(type="checkbox" ng-model="editEnabled")
       span &nbsp;Enable editing
       p.edit-instructions(ng-show="editEnabled") Click on a text field to edit it.

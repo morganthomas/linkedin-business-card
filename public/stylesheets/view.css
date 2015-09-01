@@ -3,6 +3,7 @@
   border: 1px solid black;
   margin: auto;
   padding: 30px;
+  overflow: hidden;
 }
 
 .picture {

@@ -6,8 +6,9 @@
 var businessCardApp = angular.module('businessCardApp', []);
 
 businessCardApp.controller('businessCardController', function($scope) {
-  $scope.editEnabled = false;
   $scope.user = user;
+  $scope.me = me;
+  $scope.editEnabled = false;
 
   $scope.addPosition = function() {
     user.positions.push({ title: '', company: '' });
