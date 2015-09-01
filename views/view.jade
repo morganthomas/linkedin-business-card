@@ -8,6 +8,8 @@ block head
 block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js")
   script(src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.min.js")
+  // Contains the alert component.
+  script(src="/scripts/ui-bootstrap-custom-tpls-0.13.3.min.js")
   script
    | var user = !{user};
    | var me = !{me || 'null'};
@@ -38,6 +40,7 @@ block content
     .edit-controls(ng-show="me && user.id === me.id")
       button.btn(ng-click="toggleEdit()" class="{{editEnabled ? 'btn-success' : 'btn-primary'}}") {{editEnabled ? "Preview" : "Edit"}}
       button.btn.btn-primary(ng-click="save()") Save
-      p.edit-instructions.alert.alert-info(ng-show="editEnabled") Click on a text field to edit it.
+      p.edit-alert.alert.alert-info(ng-show="editEnabled") Click on a text field to edit it.
+      alert.edit-alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)" dismiss-on-timeout="2000") {{alert.msg}}
   
   p.footer Powered by <a href="/">Virtual Business Card</a>.

@@ -3,12 +3,13 @@
 // we are viewing, and 'me' contains the user who we are. I thought this approach was
 // simpler and more efficient than fetching this information using the AJAX API.
 
-var businessCardApp = angular.module('businessCardApp', []);
+var businessCardApp = angular.module('businessCardApp', ['ui.bootstrap']);
 
 businessCardApp.controller('businessCardController', function($scope, $http) {
   $scope.user = user;
   $scope.me = me;
   $scope.editEnabled = false;
+  $scope.alerts = [];
 
   $scope.addPosition = function() {
     user.positions.push({ title: '', company: '' });
@@ -22,14 +23,18 @@ businessCardApp.controller('businessCardController', function($scope, $http) {
     $scope.editEnabled = !$scope.editEnabled;
   }
 
+  $scope.closeAlert = function(index) {
+    $scope.alerts.splice(index, 1);
+  }
+
   $scope.save = function() {
     $http.put('/api/save', { user: user })
       .then(function(res) {
-        alert("Saved!");
+        $scope.alerts.push({ type: 'info', msg: 'Saved!' });
         $scope.editEnabled = false;
       },
       function(res) {
-        alert("Server error.");
+        $scope.alerts.push({ type: 'danger', msg: res });
         console.log(res);
       });
   }
