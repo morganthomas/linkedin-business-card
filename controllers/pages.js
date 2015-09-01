@@ -2,7 +2,7 @@ var User = require('../models/user.js');
 
 var pageController = {
 	login: function(req, res) {
-		res.render('login');
+		res.render('login', { me: req.user || null });
 	},
 
 	me: function(req, res) {
