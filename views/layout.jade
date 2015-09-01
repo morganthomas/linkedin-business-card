@@ -9,5 +9,9 @@ html(lang='en')
 	body
 		.container.main-container
 			block content
+			
+			if me
+				.logout
+					a.btn.btn-default(href="/auth/logout") Logout
 		block scripts
 		

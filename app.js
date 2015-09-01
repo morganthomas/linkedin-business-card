@@ -38,7 +38,12 @@ app.get('/auth/callback',
 		res.redirect('/me');
 	});
 
-app.get('/', pageController.me);
+app.get('/auth/logout', function(req, res) {
+	req.logout();
+	res.redirect('/');
+});
+
+app.get('/', pageController.login);
 app.get('/login', pageController.login);
 app.get('/me', pageController.me);
 app.get('/view/:userId', pageController.view);
