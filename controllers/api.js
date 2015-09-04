@@ -9,11 +9,13 @@ var apiController = {
       return res.status(401).send("Not authorized to modify this business card; maybe your session expired?");
     }
 
+    var userId = user._id;
+
     // Don't update the special properties _id and __v.
     delete user._id;
     delete user.__v;
 
-    User.update({ id: user.id }, { $set: user }, function(err) {
+    User.update({ _id: userId }, { $set: user }, function(err) {
       if (err) {
         return res.status(500).send(JSON.stringify(err));
       }
